@@ -24,7 +24,7 @@ if [ "$HOST_NAME" = "$MACHINE_ONE" ]; then
 				    sleep 10
 				done
 				sed -i 's/default/cluster2/g' $MACHINE_TWO.config.yaml
-				sed -i 's/127.0.0.1/$MACHINE_TWO/g' $MACHINE_TWO.config.yaml
+				sed -i "s/127.0.0.1/$MACHINE_TWO/g" $MACHINE_TWO.config.yaml
 				export KUBECONFIG=/etc/rancher/k3s/k3s.yaml:$MACHINE_TWO.config.yaml
 				kubectl config view --flatten > ~/.kube/config
 				kubectl config use-context cluster2
