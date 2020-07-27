@@ -1,6 +1,10 @@
 
 #!/bin/sh
 
+######################
+### Helper script ####
+######################
+
 HOST_NAME=$(hostname)
 
 MACHINE_ONE=controlplane
