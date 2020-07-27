@@ -2,7 +2,7 @@
 #!/usr/bin/env bash
 
 ######################
-### Helper script ####
+### Helper script - Creating cluster ####
 ######################
 
 set -o errexit
