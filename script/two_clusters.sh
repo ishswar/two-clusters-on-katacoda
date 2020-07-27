@@ -12,9 +12,9 @@ set -o nounset
 banner()
 {
   echo "+------------------------------------------+"
-  printf "| %-40s |\n" "`date`"
+  printf "| %-80s |\n" "`date`"
   echo "|                                          |"
-  printf "|`tput bold` %-40s `tput sgr0`|\n" "$@"
+  printf "|`tput bold` %-80s `tput sgr0`|\n" "$@"
   echo "+------------------------------------------+"
 }
 
