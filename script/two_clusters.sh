@@ -8,7 +8,7 @@
 HOST_NAME=$(hostname)
 
 MACHINE_ONE=controlplane
-MACHINE_TWO=node0
+MACHINE_TWO=node01
 
 if [ "$HOST_NAME" = "$MACHINE_ONE" ]; then
         {
