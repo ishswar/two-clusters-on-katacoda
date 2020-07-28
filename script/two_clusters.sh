@@ -51,11 +51,11 @@ if [ "$HOST_NAME" = "$MACHINE_ONE" ]; then
 				FILE=$MACHINE_TWO.config.yaml
 				if [ -f "$FILE" ]; then
 					echo "Done downloaded Kube config from $MACHINE_TWO - now merging it locally"
-          spacer
+          			spacer
 					echo "Updating [$FILE] for cluster info (name,IP etc)"
 					sed -i 's/default/cluster2/g' $FILE
 					sed -i "s/127.0.0.1/$MACHINE_TWO/g" $FILE
-          spacer
+          			spacer
 					echo "Updating file [/etc/rancher/k3s/k3s.yaml] local cluster info for cluster context name - change it from 'default' to 'cluster1'"
 					sed -i 's/default/cluster1/g' /etc/rancher/k3s/k3s.yaml
 
@@ -64,16 +64,16 @@ if [ "$HOST_NAME" = "$MACHINE_ONE" ]; then
 					mkdir -p .kube
 					echo "Building combine kube config file to connec to both clusters"
 					kubectl config view --flatten > ~/.kube/config
-          spacer
+          			spacer
 					echo "Swithing kubectl context to cluster2"
 					kubectl config use-context cluster2
-          spacer
+          			spacer
 					echo "Avalable cluster context in kube config file"
 					kubectl config get-contexts
-          spacer
+          			spacer
 					echo "Getting Remote clusters [cluster2] nodes"
 					kubectl get nodes || { echo "********* Failed to get nodes from cluster [cluster2/$MACHINE_TWO] this needs tob e invastigated ********" && exit; }
-          spacer
+          			spacer
 					banner "Logging into Remote machine to setup it's kubectl config file (this is optional step)"
 					ssh $MACHINE_TWO mkdir -p ~/.kube
 					ssh $MACHINE_TWO cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
