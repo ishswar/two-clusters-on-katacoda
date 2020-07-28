@@ -74,6 +74,7 @@ if [ "$HOST_NAME" = "$MACHINE_ONE" ]; then
 					echo "Getting Remote clusters [cluster2] nodes"
 					kubectl get nodes || { echo "********* Failed to get nodes from cluster [cluster2/$MACHINE_TWO] this needs tob e invastigated ********" && exit; }
           			spacer
+          			
 					banner "Logging into Remote machine to setup it's kubectl config file (this is optional step)"
 					ssh $MACHINE_TWO mkdir -p ~/.kube
 					ssh $MACHINE_TWO cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
