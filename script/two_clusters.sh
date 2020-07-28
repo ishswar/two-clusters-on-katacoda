@@ -26,11 +26,17 @@ MACHINE_TWO=node01
 if [ "$HOST_NAME" = "$MACHINE_ONE" ]; then
         {
                 banner "Installing K3S Cluster on Control Plan machine"
+                echo "Running command: [curl -sfL https://get.k3s.io | sh -]"
                 curl -sfL https://get.k3s.io | sh -
+                echo "Running command: [kubectl config get-contexts] to check kubec context avalable"
+                kubectl config get-contexts 
+                echo "Running command: [kubectl get nodes] to check if install is successfull or not"
+                kubectl get nodes || { echo "K3S Ssetup seems to have issue needs to be invastigated" && exit; }
                 banner "Now will try to get second cluster kube config and merge it with local config"
                 mkdir -p .kube
+                echo "Running command: [scp -q -o LogLevel=QUIET $MACHINE_TWO:/etc/rancher/k3s/k3s.yaml $MACHINE_TWO.config.yaml] to get remote cluster config file"
                 n=0
-				while [ "$n" -lt 10 ] && ! scp $MACHINE_TWO:/etc/rancher/k3s/k3s.yaml $MACHINE_TWO.config.yaml; do
+				while [ "$n" -lt 10 ] && ! scp -q -o LogLevel=QUIET $MACHINE_TWO:/etc/rancher/k3s/k3s.yaml $MACHINE_TWO.config.yaml; do
 				    n=$(( n + 1 ))
 				    TURNLEFT=$(( 10 - $n ))
 				    echo "Looks like $MACHINE_TWO config is not ready yet will try $TURNLEFT more time"
@@ -38,7 +44,8 @@ if [ "$HOST_NAME" = "$MACHINE_ONE" ]; then
 				done
 				FILE=$MACHINE_TWO.config.yaml
 				if [ -f "$FILE" ]; then
-					banner "Downloaded Kube config from node01 - now merging it locally"
+					banner "Done downloaded Kube config from $MACHINE_TWO - now merging it locally"
+
 					sed -i 's/default/cluster2/g' $MACHINE_TWO.config.yaml
 					sed -i "s/127.0.0.1/$MACHINE_TWO/g" $MACHINE_TWO.config.yaml
 
@@ -50,6 +57,11 @@ if [ "$HOST_NAME" = "$MACHINE_ONE" ]; then
 					kubectl config use-context cluster2
 					kubectl config get-contexts
 					kubectl get nodes
+
+
+					ssh $MACHINE_TWO mkdir -p ~/.kube
+					ssh $MACHINE_TWO cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+
 				else 
 				    echo "$FILE does not exist."
 				    exit
