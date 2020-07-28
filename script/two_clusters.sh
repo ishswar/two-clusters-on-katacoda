@@ -36,6 +36,7 @@ if [ "$HOST_NAME" = "$MACHINE_ONE" ]; then
                 echo "Running command: [kubectl config get-contexts] to check kubec context avalable"
                 kubectl config get-contexts
                 echo "Running command: [kubectl --kubeconfig=/etc/rancher/k3s/k3s.yaml get nodes] to check if install is successfull or not"
+                echo "below command might not get any data (No resources found) is expected"
                 kubectl --kubeconfig=/etc/rancher/k3s/k3s.yaml get nodes || { echo "*********** K3S Ssetup seems to have issue needs to be invastigated ************" && exit; }
                 spacer
                 banner "Now will try to get kube config from second cluster (on machine $MACHINE_TWO) and merge it with local config"
@@ -74,8 +75,8 @@ if [ "$HOST_NAME" = "$MACHINE_ONE" ]; then
 					echo "Getting Remote clusters [cluster2] nodes"
 					kubectl get nodes || { echo "********* Failed to get nodes from cluster [cluster2/$MACHINE_TWO] this needs tob e invastigated ********" && exit; }
           			spacer
-          			
-					banner "Logging into Remote machine to setup it's kubectl config file (this is optional step)"
+
+					echo "Logging into Remote machine to setup it's kubectl config file (this is optional step)"
 					ssh $MACHINE_TWO mkdir -p ~/.kube
 					ssh $MACHINE_TWO cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
 					echo "===== WE ARE DONE ====="
