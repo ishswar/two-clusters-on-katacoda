@@ -38,7 +38,6 @@ if [ "$HOST_NAME" = "$MACHINE_ONE" ]; then
                 echo "Running command: [kubectl --kubeconfig=/etc/rancher/k3s/k3s.yaml get nodes] to check if install is successfull or not"
                 echo "below command might not get any data (No resources found) is expected"
                 kubectl --kubeconfig=/etc/rancher/k3s/k3s.yaml get nodes || { echo "*********** K3S Ssetup seems to have issue needs to be invastigated ************" && exit; }
-                spacer
                 banner "Now will try to get kube config from second cluster (on machine $MACHINE_TWO) and merge it with local config"
                 echo "Running command: [scp -q -o LogLevel=QUIET $MACHINE_TWO:/etc/rancher/k3s/k3s.yaml $MACHINE_TWO.config.yaml] to get remote cluster config file"
                 # We assume remote machine has already k3s cluster installed and SSH is possible without credentails
