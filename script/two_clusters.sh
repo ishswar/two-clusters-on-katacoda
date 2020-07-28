@@ -3,6 +3,7 @@
 
 ######################
 ### Helper script - TWO K3S Clusters on two katakoda ubutnu machines - for kubectl "set-context" practice ####
+#curl -sfL https://raw.githubusercontent.com/ishswar/two-clusters-on-katacoda/master/script/two_clusters.sh | bash -
 ######################
 
 set -o errexit
