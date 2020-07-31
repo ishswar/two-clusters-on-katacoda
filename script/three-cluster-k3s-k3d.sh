@@ -57,11 +57,11 @@ spacer
 banner "Connecting to each cluster to check all is good"
 sleep 10 
 {
-kubectl get nodes --context k3d-k8s
+runcommand "kubectl get nodes --context k3d-k8s"
 sleep 5
-kubectl get nodes --context k3d-nk8s
+runcommand "kubectl get nodes --context k3d-nk8s"
 sleep 5
-kubectl get nodes --context k3d-nk8s
+runcommand "kubectl get nodes --context k3d-nk8s"
 } || echo "One of the check failed"
  
 
