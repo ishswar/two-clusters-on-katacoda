@@ -2,12 +2,14 @@
 
 ######################
 ### Helper script - TWO K3S Clusters on two katakoda ubutnu machines - for kubectl "set-context" practice ####
+#https://katacoda.com/courses/kubernetes/getting-started-with-kubeadm
 ######################
 
 set -o errexit
 set -o pipefail
 set -o nounset
 
+#### Helper functions 
 banner()
 {
   echo "+------------------------------------------+"
@@ -22,8 +24,10 @@ spacer()
   printf "\n-----------------------------------------------------------------------------\n"
 }
 
+# Get hostname of machine 
 HOST_NAME=$(hostname)
 
+# As now only possible HOST NAME are below two 
 MACHINE_ONE=controlplane
 MACHINE_TWO=node01
 
@@ -74,10 +78,11 @@ if [ "$HOST_NAME" = "$MACHINE_ONE" ]; then
 					echo "Getting Remote clusters [cluster2] nodes"
 					kubectl get nodes || { echo "********* Failed to get nodes from cluster [cluster2/$MACHINE_TWO] this needs tob e invastigated ********" && exit; }
           			spacer
-
 					echo "Logging into Remote machine to setup it's kubectl config file (this is optional step)"
 					ssh $MACHINE_TWO mkdir -p ~/.kube
 					ssh $MACHINE_TWO cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+					echo "Done Updating remote machine"
+					spacer
 					echo "===== WE ARE DONE ====="
 
 				else
@@ -90,6 +95,7 @@ elif [ "$HOST_NAME" = "$MACHINE_TWO" ]; then
         {
                 banner "Processing $MACHINE_TWO installing k3s cluster - we will work on this cluster from machine [$MACHINE_ONE]"
                 curl -sfL https://get.k3s.io | sh -
+                echo "===== WE ARE DONE ====="
         }
 else
 	{
