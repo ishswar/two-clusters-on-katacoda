@@ -26,8 +26,8 @@ banner "Creating cluster k8s"
 k3d cluster create k8s
 banner "Creating cluster dk8s"
 k3d cluster create dk8s
-banner "Creating cluster dk8s"
-k3d cluster create dk8s
+banner "Creating cluster nk8s"
+k3d cluster create nk8s
 #k3d cluster create sk8s
 kubectl config get-clusters
 
