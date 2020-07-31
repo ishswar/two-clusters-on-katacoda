@@ -1,6 +1,15 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-functino banner()
+######################
+### Helper script - 3 K8S cluster bsed on k3s in k3d (docker) - for kubectl "set-context" practice ####
+#https://katacoda.com/courses/kubernetes/getting-started-with-kubeadm
+######################
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+banner()
 {
 echo "================================================"
 echo "============  $1  =============="
