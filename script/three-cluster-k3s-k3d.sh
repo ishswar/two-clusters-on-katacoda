@@ -2,7 +2,7 @@
 
 ######################
 ### Helper script - 3 K8S cluster bsed on k3s in k3d (docker) - for kubectl "set-context" practice ####
-#https://katacoda.com/courses/kubernetes/getting-started-with-kubeadm
+#https://www.katacoda.com/courses/kubernetes/launch-single-node-cluster
 ######################
 
 set -o errexit
