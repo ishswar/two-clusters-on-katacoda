@@ -23,19 +23,27 @@ spacer()
   printf "\n-----------------------------------------------------------------------------\n"
 }
 
-
+runcommand()
+{
+	echo "Running command $1"
+	echo 
+	$1
+}
 
 banner “Downloading k3d install script”
 
 wget -q -O - https://raw.githubusercontent.com/rancher/k3d/main/install.sh | bash
 spacer
 echo “Now creating k3s clusters in respective k3d docker container”
+
 banner "Creating cluster k8s"
-k3d cluster create k8s
+runcommand "k3d cluster create k8s"
+
 banner "Creating cluster dk8s"
-k3d cluster create dk8s
+runcommand "k3d cluster create dk8s"
+
 banner "Creating cluster nk8s"
-k3d cluster create nk8s
+runcommand "k3d cluster create nk8s"
 #k3d cluster create sk8s
 
 spacer
