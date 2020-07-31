@@ -25,16 +25,17 @@ spacer()
 
 runcommand()
 {
-	echo "Running command $1"
+	echo "Running command [$1]"
 	echo 
 	$1
 }
 
-banner “Downloading k3d install script”
+banner "Downloading k3d install script"
 
 wget -q -O - https://raw.githubusercontent.com/rancher/k3d/main/install.sh | bash
 spacer
-echo “Now creating k3s clusters in respective k3d docker container”
+
+echo "Now creating k3s clusters in respective k3d docker container"
 
 banner "Creating cluster k8s"
 runcommand "k3d cluster create k8s"
@@ -52,4 +53,4 @@ echo "List all the cluster contextes"
 kubectl config get-clusters
 
 echo
-banner “We are done”
+banner "We are done"
