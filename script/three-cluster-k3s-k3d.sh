@@ -52,5 +52,14 @@ echo "List all the cluster contextes"
 
 kubectl config get-clusters
 
+spacer
+banner "Connecting to each cluster to check all is good"
+{
+kubectl get nodes --context k3d-nk8s
+kubectl get nodes --context k3d-k8s
+kubectl get nodes --context k3d-nk8s
+} || echo "One of the check failed"
+ 
+
 echo
 banner "We are done"
