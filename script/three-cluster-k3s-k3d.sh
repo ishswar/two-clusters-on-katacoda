@@ -34,7 +34,7 @@ countdonw()
 {
 	for i in {$1..01}
 	do
-	tput cup 10 $l
+	tput cup 10 $1
 	echo -n "$i"
 	sleep 1
 	done
