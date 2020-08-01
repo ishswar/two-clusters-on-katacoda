@@ -30,16 +30,21 @@ runcommand()
 	$1
 }
 
-countdonw()
-{
-	for i in {$1..01}
-	do
-	tput cup 10 $1
-	echo -n "$i"
-	sleep 1
-	done
-	echo
-}
+#https://www.cyberciti.biz/faq/how-to-display-countdown-timer-in-bash-shell-script-running-on-linuxunix/
+countdown()
+(
+  IFS=:
+  set -- $*
+  secs=$(( ${1#0} * 3600 + ${2#0} * 60 + ${3#0} ))
+  while [ $secs -gt 0 ]
+  do
+    sleep 1 &
+    printf "\r%02d:%02d:%02d" $((secs/3600)) $(( (secs/60)%60)) $((secs%60))
+    secs=$(( $secs - 1 ))
+    wait
+  done
+  echo
+)
 
 banner "Downloading k3d install script"
 
@@ -66,12 +71,12 @@ kubectl config get-clusters
 spacer
 
 banner "Connecting to each cluster to check all is good"
-countdonw 10
+countdown "00:00:10"
 {
 runcommand "kubectl get nodes --context k3d-k8s"
-countdonw 5
+countdown "00:00:5"
 runcommand "kubectl get nodes --context k3d-dk8s"
-countdonw 5
+countdown "00:00:5"
 runcommand "kubectl get nodes --context k3d-nk8s"
 } || echo "One of the check failed"
  
