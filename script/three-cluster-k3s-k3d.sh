@@ -70,7 +70,7 @@ countdonw 10
 {
 runcommand "kubectl get nodes --context k3d-k8s"
 countdonw 5
-runcommand "kubectl get nodes --context k3d-nk8s"
+runcommand "kubectl get nodes --context k3d-dk8s"
 countdonw 5
 runcommand "kubectl get nodes --context k3d-nk8s"
 } || echo "One of the check failed"
