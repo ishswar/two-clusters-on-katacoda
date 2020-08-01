@@ -30,6 +30,17 @@ runcommand()
 	$1
 }
 
+countdonw()
+{
+	for i in {$1..01}
+	do
+	tput cup 10 $l
+	echo -n "$i"
+	sleep 1
+	done
+	echo
+}
+
 banner "Downloading k3d install script"
 
 wget -q -O - https://raw.githubusercontent.com/rancher/k3d/main/install.sh | bash
@@ -55,12 +66,12 @@ kubectl config get-clusters
 spacer
 
 banner "Connecting to each cluster to check all is good"
-sleep 10 
+countdonw 10
 {
 runcommand "kubectl get nodes --context k3d-k8s"
-sleep 5
+countdonw 5
 runcommand "kubectl get nodes --context k3d-nk8s"
-sleep 5
+countdonw 5
 runcommand "kubectl get nodes --context k3d-nk8s"
 } || echo "One of the check failed"
  
