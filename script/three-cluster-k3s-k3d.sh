@@ -44,7 +44,7 @@ banner "Creating cluster dk8s"
 runcommand "k3d cluster create dk8s -a 1"
 
 banner "Creating cluster nk8s"
-runcommand "k3d cluster create nk8s -a 2"
+runcommand "k3d cluster create nk8s -a 1"
 #k3d cluster create sk8s
 
 spacer
