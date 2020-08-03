@@ -65,7 +65,7 @@ banner "Creating cluster dk8s"
 runcommand "k3d cluster create dk8s -a $NUMBER_OF_NODES_CLUSTER_DK8S"
 
 banner "Creating cluster nk8s"
-runcommand "k3d cluster create nk8s-a $NUMBER_OF_NODES_CLUSTER_NK8S"
+runcommand "k3d cluster create nk8s -a $NUMBER_OF_NODES_CLUSTER_NK8S"
 #k3d cluster create sk8s
 
 spacer
